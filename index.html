@@ -33,6 +33,126 @@ body {
 
 .container { max-width: 1250px; margin: 0 auto; padding: 20px; }
 
+/* ===================== شاشة تسجيل الدخول ===================== */
+#loginScreen {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+}
+#loginScreen.hidden { display: none; }
+
+.login-box {
+    background: white;
+    padding: 40px 35px;
+    border-radius: 16px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    text-align: center;
+    animation: slideUp 0.4s ease;
+}
+@keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.login-box .logo {
+    font-size: 4em;
+    margin-bottom: 15px;
+    display: block;
+}
+.login-box h1 {
+    color: var(--primary);
+    font-size: 1.5em;
+    margin-bottom: 6px;
+}
+.login-box p.subtitle {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin-bottom: 25px;
+}
+.login-box label {
+    display: block;
+    text-align: right;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #444;
+    font-size: 0.95em;
+}
+.login-box input[type="password"] {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #e0e4e8;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 1.1em;
+    text-align: center;
+    letter-spacing: 3px;
+    transition: border 0.2s;
+    direction: ltr;
+}
+.login-box input[type="password"]:focus {
+    outline: none;
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(42,82,152,0.15);
+}
+.login-box button {
+    width: 100%;
+    margin-top: 18px;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 1.05em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s;
+}
+.login-box button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(30,60,114,0.35);
+}
+.login-box button:active { transform: translateY(0); }
+
+.login-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-top: 15px;
+    font-size: 0.9em;
+    border-right: 4px solid var(--red);
+    display: none;
+}
+.login-error.show { display: block; animation: shake 0.3s; }
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+}
+
+.login-hint {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 0.85em;
+    color: var(--muted);
+}
+
+/* زر تسجيل الخروج */
+.logout-btn {
+    background: rgba(220,53,69,0.85) !important;
+    margin-right: auto;
+}
+.logout-btn:hover { background: var(--red) !important; }
+
 /* ===================== الهيدر ===================== */
 header {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
@@ -163,13 +283,11 @@ tbody tr:hover { background: #f8f9fa; }
 .student-link:hover { text-decoration: underline; }
 .en-name { color: var(--muted); font-size: 0.85em; direction: ltr; text-align: left; }
 
-/* صفوف ملونة حسب الحالة */
 tr.row-green { border-right: 5px solid var(--green); }
 tr.row-yellow { border-right: 5px solid var(--yellow); background: #fff9e6; }
 tr.row-orange { border-right: 5px solid var(--orange); background: #fff3e6; }
 tr.row-red { border-right: 5px solid var(--red); background: #ffe6e6; }
 
-/* الشارات */
 .badge {
     display: inline-block;
     padding: 3px 12px;
@@ -207,21 +325,9 @@ tr.row-red { border-right: 5px solid var(--red); background: #ffe6e6; }
     white-space: nowrap;
 }
 .status-btn:hover { background: #e9ecef; }
-.status-btn.active-present {
-    background: var(--green);
-    color: white;
-    font-weight: 700;
-}
-.status-btn.active-absent {
-    background: var(--red);
-    color: white;
-    font-weight: 700;
-}
-.status-btn.active-excused {
-    background: var(--excused);
-    color: white;
-    font-weight: 700;
-}
+.status-btn.active-present { background: var(--green); color: white; font-weight: 700; }
+.status-btn.active-absent { background: var(--red); color: white; font-weight: 700; }
+.status-btn.active-excused { background: var(--excused); color: white; font-weight: 700; }
 
 /* ===================== النوافذ المنبثقة ===================== */
 .modal {
@@ -327,7 +433,6 @@ tr.row-red { border-right: 5px solid var(--red); background: #ffe6e6; }
 .page { display: none; }
 .page.active { display: block; }
 
-/* ===================== النماذج ===================== */
 .filter-form {
     display: flex;
     gap: 15px;
@@ -346,7 +451,6 @@ tr.row-red { border-right: 5px solid var(--red); background: #ffe6e6; }
     font-family: inherit;
 }
 
-/* ===================== الفوتر ===================== */
 footer {
     text-align: center;
     padding: 25px;
@@ -355,7 +459,6 @@ footer {
     font-size: 0.9em;
 }
 
-/* ===================== حالة فارغة ===================== */
 .empty-state {
     text-align: center;
     padding: 50px 20px;
@@ -366,7 +469,6 @@ footer {
 }
 .empty-state .icon { font-size: 3em; display: block; margin-bottom: 10px; }
 
-/* ===================== شريط المعلومات ===================== */
 .daily-info {
     display: flex;
     gap: 20px;
@@ -379,38 +481,58 @@ footer {
 }
 .daily-info span strong { color: var(--primary-light); }
 
-/* ===================== التجاوب ===================== */
 @media (max-width: 600px) {
     header h1 { font-size: 1.3em; }
     .stats-cards { grid-template-columns: repeat(2, 1fr); }
     nav button { padding: 7px 12px; font-size: 0.85em; }
     td, th { padding: 8px; font-size: 0.82em; }
     .status-btn { padding: 5px 8px; font-size: 0.75em; }
+    .login-box { padding: 30px 22px; }
 }
 </style>
 </head>
 <body>
 
+<!-- ===================== شاشة تسجيل الدخول ===================== -->
+<div id="loginScreen">
+    <div class="login-box">
+        <span class="logo">🔐</span>
+        <h1>مدرسة الطرة الثانوية للبنين</h1>
+        <p class="subtitle">نظام الحضور والغياب — الصف الثاني عشر / تكنولوجيا المعلومات</p>
+
+        <label for="passwordInput">كلمة المرور</label>
+        <input type="password" id="passwordInput" placeholder="••••••••" autocomplete="off" autofocus>
+
+        <button onclick="checkPassword()">🔓 دخول</button>
+
+        <div class="login-error" id="loginError">❌ كلمة المرور غير صحيحة</div>
+
+        <div class="login-hint">
+            💡 هذا النظام محمي. الدخول للمعلم فقط.
+        </div>
+    </div>
+</div>
+
+<!-- ===================== المحتوى (مخفي حتى الدخول) ===================== -->
+<div id="mainApp" style="display:none;">
+
 <header>
     <div class="container">
-        <h1> مدرسة الطرة الثانوية للبنين </h1>
-    
+        <h1>🏫 مدرسة الطرة الثانوية للبنين</h1>
         <p>نظام الحضور والغياب - الصف الثاني عشر / تكنولوجيا المعلومات</p>
-                <h1> المقيّم: منذر الزعبي</h1>
-
         <nav>
             <button class="nav-btn active" data-page="home">🏠 الرئيسية</button>
             <button class="nav-btn" data-page="daily">📝 التسجيل اليومي</button>
             <button class="nav-btn" data-page="reports">📊 التقارير</button>
             <button class="nav-btn" data-page="alerts">🔔 التنبيهات</button>
             <button class="nav-btn" data-page="backup">💾 النسخ الاحتياطي</button>
+            <button class="nav-btn logout-btn" onclick="logout()">🚪 خروج</button>
         </nav>
     </div>
 </header>
 
 <main class="container">
 
-    <!-- ============ الصفحة الرئيسية ============ -->
     <section id="page-home" class="page active">
         <div class="stats-cards" id="statsCards"></div>
 
@@ -444,7 +566,6 @@ footer {
         </div>
     </section>
 
-    <!-- ============ صفحة التسجيل اليومي ============ -->
     <section id="page-daily" class="page">
         <h2 style="margin-bottom:15px; color:var(--primary-light);">📝 التسجيل اليومي</h2>
 
@@ -489,7 +610,6 @@ footer {
         </div>
     </section>
 
-    <!-- ============ صفحة التقارير ============ -->
     <section id="page-reports" class="page">
         <h2 style="margin-bottom:15px; color:var(--primary-light);">📊 التقارير الكاملة</h2>
 
@@ -529,16 +649,14 @@ footer {
         </div>
     </section>
 
-    <!-- ============ صفحة التنبيهات ============ -->
     <section id="page-alerts" class="page">
         <h2 style="margin-bottom:15px; color:var(--primary-light);">🔔 التنبيهات والإنذارات</h2>
         <div class="alert alert-info">
-            ℹ️ يتم احتساب التنبيهات بناءً على <strong>الغياب بدون عذر فقط</strong> — الغياب بعذر لا يؤثر على التنبيه.
+            ℹ️ يتم احتساب التنبيهات بناءً على <strong>الغياب بدون عذر فقط</strong>.
         </div>
         <div id="alertsList"></div>
     </section>
 
-    <!-- ============ صفحة النسخ الاحتياطي ============ -->
     <section id="page-backup" class="page">
         <h2 style="margin-bottom:15px; color:var(--primary-light);">💾 النسخ الاحتياطي والاستعادة</h2>
 
@@ -548,34 +666,86 @@ footer {
 
         <div style="background:white; padding:20px; border-radius:10px; margin-bottom:15px;">
             <h3 style="margin-bottom:10px;">📤 تصدير نسخة احتياطية</h3>
-            <p style="color:var(--muted); margin-bottom:10px;">
-                يحفظ جميع الطلاب والسجلات في ملف JSON.
-            </p>
+            <p style="color:var(--muted); margin-bottom:10px;">يحفظ جميع الطلاب والسجلات في ملف JSON.</p>
             <button class="btn btn-primary" onclick="exportBackup()">📥 تنزيل النسخة الاحتياطية</button>
         </div>
 
         <div style="background:white; padding:20px; border-radius:10px;">
             <h3 style="margin-bottom:10px;">📥 استعادة نسخة احتياطية</h3>
-            <p style="color:var(--muted); margin-bottom:10px;">
-                اختر ملف JSON لاستعادة البيانات.
-            </p>
+            <p style="color:var(--muted); margin-bottom:10px;">اختر ملف JSON لاستعادة البيانات.</p>
             <input type="file" id="importFile" accept=".json" style="margin-bottom:10px;">
             <br>
             <button class="btn btn-success" onclick="importBackup()">⬆️ استعادة</button>
         </div>
     </section>
 
-    <!-- ============ صفحة الطالب ============ -->
     <section id="page-student" class="page"></section>
 
 </main>
 
 <footer>
-     © 2026-2027 -  مدرسة الطرة الثانوية للبنين | نظام الحضور والغياب المحلي -    
-   المقييم: منذر الزعبي
+    © 2026-2027 - مدرسة الطرة الثانوية للبنين | نظام الحضور والغياب
 </footer>
 
+</div>
+
 <script>
+/* ==========================================================================
+   🔐 0. نظام تسجيل الدخول
+   ========================================================================== */
+const CORRECT_PASSWORD = "IT-12";
+const SESSION_KEY = "attendance_logged_in";
+
+function checkPassword() {
+    const input = document.getElementById("passwordInput").value;
+    const err = document.getElementById("loginError");
+
+    if (input === CORRECT_PASSWORD) {
+        err.classList.remove("show");
+        sessionStorage.setItem(SESSION_KEY, "true");
+        showApp();
+    } else {
+        err.classList.add("show");
+        document.getElementById("passwordInput").value = "";
+        document.getElementById("passwordInput").focus();
+        // إعادة تأثير الاهتزاز
+        err.style.animation = "none";
+        setTimeout(() => err.style.animation = "shake 0.3s", 10);
+    }
+}
+
+function showApp() {
+    document.getElementById("loginScreen").classList.add("hidden");
+    document.getElementById("mainApp").style.display = "block";
+    // تشغيل التطبيق بعد تسجيل الدخول
+    if (typeof start === "function") start();
+}
+
+function logout() {
+    if (!confirm("هل تريد تسجيل الخروج؟")) return;
+    sessionStorage.removeItem(SESSION_KEY);
+    location.reload();
+}
+
+// تشغيل التحقق فور فتح الصفحة
+window.addEventListener("DOMContentLoaded", () => {
+    const passInput = document.getElementById("passwordInput");
+    // إدخال Enter
+    passInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") checkPassword();
+    });
+
+    // إذا كان مسجلاً دخوله مسبقاً في نفس الجلسة → دخول مباشر
+    if (sessionStorage.getItem(SESSION_KEY) === "true") {
+        document.getElementById("loginScreen").classList.add("hidden");
+        document.getElementById("mainApp").style.display = "block";
+        // سيتم استدعاء start() من داخل دالة start() نفسها
+        setTimeout(() => { if (typeof start === "function") start(); }, 50);
+    } else {
+        setTimeout(() => passInput.focus(), 100);
+    }
+});
+
 /* ==========================================================================
    1. البيانات الأساسية
    ========================================================================== */
@@ -602,7 +772,6 @@ const STUDENTS_SEED = [
 const WARNING_THRESHOLD = 5;
 const ORANGE_THRESHOLD  = 25;
 const RED_THRESHOLD     = 35;
-
 const SCHOOL_START = "2026-08-23";
 const SCHOOL_END   = "2027-06-18";
 
@@ -710,34 +879,30 @@ function todayISO() {
    4. البيانات العامة
    ========================================================================== */
 let studentsCache = [];
-let recordsCache = [];  // { id, student_id, date, status: 'present'|'absent'|'excused', note }
+let recordsCache = [];
 let currentStudentId = null;
 let dailyDate = todayISO();
-let dailySelections = {}; // { studentId: status }
+let dailySelections = {};
+let appStarted = false;
 
 async function loadData() {
     studentsCache = await dbGetAll("students");
     recordsCache = await dbGetAll("records");
 }
 
-/* حساب غيابات طالب (بدون عذر فقط للتنبيه) */
 function countAbsent(studentId) {
     return recordsCache.filter(r => r.student_id === studentId && r.status === "absent").length;
 }
 function countExcused(studentId) {
     return recordsCache.filter(r => r.student_id === studentId && r.status === "excused").length;
 }
-/* الإجمالي = غياب بدون عذر (هذا ما يعتمد عليه التنبيه) */
-function countTotal(studentId) {
-    return countAbsent(studentId);
-}
-/* الإجمالي الكامل (للعرض) */
+function countTotal(studentId) { return countAbsent(studentId); }
 function countAll(studentId) {
     return recordsCache.filter(r => r.student_id === studentId).length;
 }
 
 /* ==========================================================================
-   5. الصفحة الرئيسية
+   5. الرئيسية
    ========================================================================== */
 function renderStats() {
     const counts = { green: 0, yellow: 0, orange: 0, red: 0 };
@@ -810,14 +975,13 @@ function renderStudentsTable() {
 }
 
 /* ==========================================================================
-   6. صفحة التسجيل اليومي
+   6. التسجيل اليومي
    ========================================================================== */
 function renderDailyTable() {
     const tbody = document.getElementById("dailyTable");
     tbody.innerHTML = "";
     dailySelections = {};
 
-    // تحميل السجلات الموجودة مسبقاً لهذا اليوم
     const existing = {};
     recordsCache.filter(r => r.date === dailyDate).forEach(r => {
         existing[r.student_id] = r.status;
@@ -850,12 +1014,8 @@ function renderDailyTable() {
 }
 
 function setStatus(sid, status) {
-    // إذا ضغط على نفس الزر → إلغاء التحديد
-    if (dailySelections[sid] === status) {
-        delete dailySelections[sid];
-    } else {
-        dailySelections[sid] = status;
-    }
+    if (dailySelections[sid] === status) delete dailySelections[sid];
+    else dailySelections[sid] = status;
     refreshRowButtons(sid);
     updateDailyCounters();
 }
@@ -916,11 +1076,9 @@ async function saveDailyRecord() {
         return;
     }
 
-    // حذف السجلات القديمة لهذا اليوم
     const oldRecords = recordsCache.filter(r => r.date === dailyDate);
     for (const r of oldRecords) await dbDelete("records", r.id);
 
-    // إضافة السجلات الجديدة
     let added = 0;
     for (const [sid, status] of Object.entries(dailySelections)) {
         await dbAdd("records", {
@@ -1018,7 +1176,7 @@ async function deleteRecord(rid, sid) {
 }
 
 /* ==========================================================================
-   8. صفحة التقارير
+   8. التقارير
    ========================================================================== */
 function renderReports() {
     const start = document.getElementById("repStart").value;
@@ -1105,7 +1263,7 @@ function exportCSV() {
 }
 
 /* ==========================================================================
-   9. صفحة التنبيهات
+   9. التنبيهات
    ========================================================================== */
 function renderAlerts() {
     const alerts = studentsCache
@@ -1212,7 +1370,7 @@ function navigate(page) {
     document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
     document.getElementById("page-" + page).classList.add("active");
     document.querySelectorAll(".nav-btn").forEach(b => {
-        b.classList.toggle("active", b.dataset.page === page);
+        if (b.dataset.page) b.classList.toggle("active", b.dataset.page === page);
     });
 
     if (page === "home")    { renderStats(); renderStudentsTable(); }
@@ -1230,29 +1388,35 @@ async function renderAll() {
     renderStudentsTable();
     renderReports();
     renderAlerts();
-    document.getElementById("todayBadge").textContent = "📅 اليوم: " + todayISO();
+    const badge = document.getElementById("todayBadge");
+    if (badge) badge.textContent = "📅 اليوم: " + todayISO();
 }
 
 async function start() {
+    if (appStarted) return;  // منع التشغيل المزدوج
+    appStarted = true;
+
     await initDatabase();
     await loadData();
 
-    // إعداد التاريخ الافتراضي للتسجيل اليومي
-    document.getElementById("dailyDate").value = dailyDate;
-    document.getElementById("dailyDate").addEventListener("change", (e) => {
-        dailyDate = e.target.value;
-        renderDailyTable();
-    });
+    const dailyDateInput = document.getElementById("dailyDate");
+    if (dailyDateInput) {
+        dailyDateInput.value = dailyDate;
+        dailyDateInput.addEventListener("change", (e) => {
+            dailyDate = e.target.value;
+            renderDailyTable();
+        });
+    }
 
     document.querySelectorAll(".nav-btn").forEach(btn => {
-        btn.addEventListener("click", () => navigate(btn.dataset.page));
+        if (btn.dataset.page) {
+            btn.addEventListener("click", () => navigate(btn.dataset.page));
+        }
     });
 
     await renderAll();
     navigate("home");
 }
-
-start();
 </script>
 </body>
 </html>
